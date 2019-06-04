@@ -6,7 +6,7 @@ import "antd/dist/antd.css";
 export default function Root(props) {
   return (
     <Provider store={props.store}>
-      <Messages />
+      <Messages dispatch={() => {}}/>
     </Provider>
   );
 }

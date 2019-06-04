@@ -3,10 +3,12 @@ import { connect } from "react-redux";
 import { add as addMessage } from "../actions/messages";
 import MessageLayout from "./MessagesLayout";
 
-const mapStateToProps = ({ messages }, ownProps) => ({
-  messages,
-  ...ownProps
-});
+const mapStateToProps = ({ messages }, ownProps) => {
+  return {
+    messages,
+    ...ownProps
+    };
+};
 
 class Messages extends React.Component {
   handleSubmitMessage(message) {
@@ -14,8 +16,15 @@ class Messages extends React.Component {
   }
 
   render() {
-    return <MessageLayout />;
-  }
+    //this.props.message
+    return <MessageLayout 
+      renderMessages={() => {
+        <div>
+          {this.props.messages}
+        </div>
+        }}/* mettre les render pros pour layout */
+      />;
+      }
 }
 
 export default connect(mapStateToProps)(Messages);

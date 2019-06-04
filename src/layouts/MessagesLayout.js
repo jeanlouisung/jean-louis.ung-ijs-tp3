@@ -1,7 +1,8 @@
 import React from "react";
 import { Layout } from "antd";
 
-const MessageLayout = props => (
+//donner des renderprops pour les content
+const MessageLayout = ({ renderMessages = () => {}, renderInput = () => {} }) => (
   <Layout style={{ height: "calc(100%)" }}>
     <Layout.Content style={{ padding: "0 50px", height: "calc(80%)" }}>
       <Layout
@@ -12,7 +13,7 @@ const MessageLayout = props => (
         }}
       >
         <Layout.Content style={{ padding: "0 24px", height: "calc(80%)" }}>
-          Content
+          { renderMessages }
         </Layout.Content>
       </Layout>
     </Layout.Content>
@@ -23,7 +24,7 @@ const MessageLayout = props => (
         height: "calc(20%)"
       }}
     >
-      Write Message
+      { renderInput }
     </Layout.Footer>
   </Layout>
 );

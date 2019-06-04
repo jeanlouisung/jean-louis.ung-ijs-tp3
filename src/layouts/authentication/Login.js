@@ -28,6 +28,7 @@ class LoginLayout extends React.Component {
     this.props.dispatch(authenticate(email, password));
   }
 
+  // faire un hoc qui va rendre visible ou pas
   render() {
     return (
       <div {...backgroundStyle}>
