@@ -17,14 +17,44 @@ class Messages extends React.Component {
 
   render() {
     //this.props.message
-    return <MessageLayout 
-      renderMessages={() => {
-        <div>
-          {this.props.messages}
-        </div>
-        }}/* mettre les render pros pour layout */
-      />;
-      }
+    return (
+      <MessageLayout 
+        renderAddMessageButton={() => {
+          <div
+            onClick={() =>
+              this.props.dispatch({
+                type: 'ADD_MESSAGE',
+                text: 'tititata',
+                userName: 'quentin',
+                date: new Date().getTime()
+              })
+            }
+          >
+            Add message
+          </div>
+          }}
+        renderMessages={ () => {
+          <div>
+            {this.props.messages.map(message => {
+              <div>{message.text}</div>;
+            })}
+          </div>
+        }}
+        renderInput={ () => <MessageInput onSubmit={this.handleSubmitMessage} />}
+      />
+    );
+  }
+}
+
+const MessageInput = ({ onSubmit = () => {} }) => {
+  let inputRef = null;
+
+  return (
+    <div>
+      <input ref={n => (inputRef = n)}/>
+      <button onClick={ () => onSubmit(inputRef.content.value)}>send</button>
+    </div>
+  )
 }
 
 export default connect(mapStateToProps)(Messages);
