@@ -19,42 +19,28 @@ class Messages extends React.Component {
     //this.props.message
     return (
       <MessageLayout 
-        renderAddMessageButton={() => {
-          <div
-            onClick={() =>
-              this.props.dispatch({
-                type: 'ADD_MESSAGE',
-                text: 'tititata',
-                userName: 'quentin',
-                date: new Date().getTime()
-              })
-            }
-          >
-            Add message
-          </div>
-          }}
-        renderMessages={ () => {
+        renderMessages={() => (
           <div>
-            {this.props.messages.map(message => {
-              <div>{message.text}</div>;
-            })}
+            {this.props.messages.map(message => (
+              <div>{message.text}</div>
+            ))}
           </div>
-        }}
-        renderInput={ () => <MessageInput onSubmit={this.handleSubmitMessage} />}
+        )}
+        renderInput={ () => <MessageInput onSubmit={this.handleSubmitMessage.bind(this)} />}
       />
     );
   }
 }
 
 const MessageInput = ({ onSubmit = () => {} }) => {
-  let inputRef = null;
+  let inputRef = React.createRef();
 
   return (
     <div>
-      <input ref={n => (inputRef = n)}/>
-      <button onClick={ () => onSubmit(inputRef.content.value)}>send</button>
+      <input ref={inputRef}/>
+      <button onClick={ () => {onSubmit(inputRef.current.value) }}>send</button>
     </div>
-  )
-}
+  );
+};
 
 export default connect(mapStateToProps)(Messages);
